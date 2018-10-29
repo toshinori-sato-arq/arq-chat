@@ -1,10 +1,9 @@
-package jp.androbo.quick.chat.domain.message
+package jp.androbo.quick.chat.domain.model.message
 
 import java.time.LocalDateTime
 
-import jp.androbo.quick.chat.domain.room.RoomId
-import jp.androbo.quick.chat.domain.user.UserId
-import jp.androbo.quick.chat.room.RoomId
+import jp.androbo.quick.chat.domain.model.room.RoomId
+import jp.androbo.quick.chat.domain.model.user.UserId
 import play.api.libs.json.{Format, Json}
 
 case class Message(

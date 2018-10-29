@@ -1,8 +1,8 @@
-package jp.androbo.quick.chat.domain
+package jp.androbo.quick.chat.domain.model.email
 
 import play.api.libs.json._
 
-case class EmailAddress(value: String) extends AnyVal
+case class EmailAddress private[email] (value: String) extends AnyVal
 
 object EmailAddress {
   /**

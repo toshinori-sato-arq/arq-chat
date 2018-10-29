@@ -1,4 +1,4 @@
-package jp.androbo.quick.chat.domain.room
+package jp.androbo.quick.chat.domain.model.room
 
 import java.time.LocalDateTime
 

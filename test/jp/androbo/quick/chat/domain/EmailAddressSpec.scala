@@ -1,5 +1,6 @@
 package jp.androbo.quick.chat.domain
 
+import jp.androbo.quick.chat.domain.model.email.EmailAddress
 import org.scalatest.FreeSpec
 import play.api.libs.json.{Json, OFormat}
 

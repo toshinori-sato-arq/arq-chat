@@ -1,4 +1,4 @@
-package jp.androbo.quick.chat.domain.message
+package jp.androbo.quick.chat.domain.model.message
 
 import play.api.libs.json.{Format, JsResult, JsString, JsValue}
 

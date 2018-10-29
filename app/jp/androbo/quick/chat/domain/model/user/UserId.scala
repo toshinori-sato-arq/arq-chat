@@ -1,6 +1,7 @@
-package jp.androbo.quick.chat.domain.user
+package jp.androbo.quick.chat.domain.model.user
 
-import jp.androbo.quick.chat.domain.EmailAddress
+import jp.androbo.quick.chat.domain.model.email.EmailAddress
+import jp.androbo.quick.chat.domain.model.event.error.ErrorEvent
 import play.api.libs.json.{Format, JsResult, JsString, JsValue}
 
 case class UserId(email: EmailAddress)

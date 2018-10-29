@@ -1,8 +1,9 @@
-package jp.androbo.quick.chat.domain.user
+package jp.androbo.quick.chat.domain.model.user
 
 import java.time.LocalDateTime
 
-import jp.androbo.quick.chat.domain.{EmailAddress, Password}
+import jp.androbo.quick.chat.domain.Password
+import jp.androbo.quick.chat.domain.model.email.EmailAddress
 import org.scalatest.FreeSpec
 import play.api.libs.json.Json
 
