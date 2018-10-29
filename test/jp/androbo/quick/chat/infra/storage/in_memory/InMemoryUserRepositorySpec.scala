@@ -1,4 +1,4 @@
-package jp.androbo.quick.chat.infra.strage.in_memory
+package jp.androbo.quick.chat.infra.storage.in_memory
 
 import jp.androbo.quick.chat.domain.model.email.{EmailAddress, EmailAddressFactoryImpl}
 import jp.androbo.quick.chat.domain.model.event.error.ErrorEvent

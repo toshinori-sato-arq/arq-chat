@@ -1,4 +1,4 @@
-package jp.androbo.quick.chat.infra.strage.in_memory
+package jp.androbo.quick.chat.infra.storage.in_memory
 
 import javax.inject.Singleton
 import jp.androbo.quick.chat.domain.model.event.error.ErrorEvent
@@ -26,4 +26,6 @@ class InMemoryUserRepository extends UserRepository {
   override def findById(userId: UserId): Option[User] = this.synchronized {
     memory.get(userId)
   }
+
+  override def list: Seq[User] = this.synchronized(memory.values.toSeq)
 }
