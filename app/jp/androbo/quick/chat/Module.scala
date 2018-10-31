@@ -2,11 +2,11 @@ package jp.androbo.quick.chat
 
 import com.google.inject.AbstractModule
 import jp.androbo.quick.chat.application.{SessionIdGenerator, SessionManager, SimpleSessionIdGenerator}
-import jp.androbo.quick.chat.domain.model.email.{EmailAddressFactory, EmailAddressFactoryImpl}
-import jp.androbo.quick.chat.domain.model.event.error.{ErrorMessageGenerator, SimpleErrorMessageGenerator}
-import jp.androbo.quick.chat.domain.model.room._
-import jp.androbo.quick.chat.domain.model.room.operation.{RoomOperations, RoomOperationsImpl}
-import jp.androbo.quick.chat.domain.model.user.{UserFactory, UserFactoryImpl, UserRepository}
+import jp.androbo.quick.chat.domain.email.{EmailAddressFactory, EmailAddressFactoryImpl}
+import jp.androbo.quick.chat.domain.error.{ErrorMessageGenerator, SimpleErrorMessageGenerator}
+import jp.androbo.quick.chat.domain.room._
+import jp.androbo.quick.chat.domain.room.operation.{RoomOperations, RoomOperationsImpl}
+import jp.androbo.quick.chat.domain.user.{UserFactory, UserFactoryImpl, UserRepository}
 import jp.androbo.quick.chat.infra.storage.in_memory.{InMemoryRoomRepository, InMemorySessionManager, InMemoryUserRepository}
 import net.codingwell.scalaguice.ScalaModule
 

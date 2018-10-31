@@ -1,9 +1,9 @@
 package jp.androbo.quick.chat.web.controller.room
 
 import javax.inject.{Inject, Singleton}
-import jp.androbo.quick.chat.domain.model.privilege.RoomPrivilege
-import jp.androbo.quick.chat.domain.model.room.RoomRepository
-import jp.androbo.quick.chat.domain.model.room.operation.RoomOperations
+import jp.androbo.quick.chat.domain.privilege.RoomPrivilege
+import jp.androbo.quick.chat.domain.room.RoomRepository
+import jp.androbo.quick.chat.domain.room.operation.RoomOperations
 import jp.androbo.quick.chat.web.controller.ApiActions
 import play.api.libs.json.Json
 import play.api.mvc.{AbstractController, AnyContent, ControllerComponents}

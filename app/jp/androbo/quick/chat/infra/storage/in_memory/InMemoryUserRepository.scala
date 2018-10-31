@@ -1,8 +1,8 @@
 package jp.androbo.quick.chat.infra.storage.in_memory
 
 import javax.inject.Singleton
-import jp.androbo.quick.chat.domain.model.event.error.ErrorEvent
-import jp.androbo.quick.chat.domain.model.user.{User, UserId, UserRepository}
+import jp.androbo.quick.chat.domain.error.ErrorEvent
+import jp.androbo.quick.chat.domain.user.{User, UserId, UserRepository}
 
 import scala.collection.mutable
 

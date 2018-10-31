@@ -2,8 +2,8 @@ package jp.androbo.quick.chat.web.controller.debug
 
 import javax.inject.{Inject, Singleton}
 import jp.androbo.quick.chat.application.SessionManager
-import jp.androbo.quick.chat.domain.model.room.RoomRepository
-import jp.androbo.quick.chat.domain.model.user.UserRepository
+import jp.androbo.quick.chat.domain.room.RoomRepository
+import jp.androbo.quick.chat.domain.user.UserRepository
 import jp.androbo.quick.chat.web.controller.ApiActions
 import play.api.libs.json.Json
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}

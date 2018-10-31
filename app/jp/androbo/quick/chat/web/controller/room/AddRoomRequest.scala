@@ -1,6 +1,6 @@
 package jp.androbo.quick.chat.web.controller.room
 
-import jp.androbo.quick.chat.domain.model.room.{RoomDescription, RoomName}
+import jp.androbo.quick.chat.domain.room.{RoomDescription, RoomName}
 import play.api.libs.json.{Format, Json}
 
 case class AddRoomRequest(name: RoomName, description: RoomDescription)

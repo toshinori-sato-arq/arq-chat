@@ -1,6 +1,6 @@
 package jp.androbo.quick.chat.application
 
-import jp.androbo.quick.chat.domain.model.user.User
+import jp.androbo.quick.chat.domain.user.User
 
 trait SessionManager {
   def findUserBySessionId(s: SessionId): Option[User]

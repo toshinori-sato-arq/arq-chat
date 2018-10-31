@@ -3,10 +3,10 @@ package jp.androbo.quick.chat.web.controller.authentication
 import javax.inject.{Inject, Singleton}
 import jp.androbo.quick.chat.application.{Authentication, SessionIdGenerator, SessionManager}
 import jp.androbo.quick.chat.domain.Password
-import jp.androbo.quick.chat.domain.model.email.EmailAddress
-import jp.androbo.quick.chat.domain.model.event.error.ErrorEvent
-import jp.androbo.quick.chat.domain.model.room.{RoomFactory, RoomRepository}
-import jp.androbo.quick.chat.domain.model.user.{UserFactory, UserId, UserRepository}
+import jp.androbo.quick.chat.domain.email.EmailAddress
+import jp.androbo.quick.chat.domain.error.ErrorEvent
+import jp.androbo.quick.chat.domain.room.{RoomFactory, RoomRepository}
+import jp.androbo.quick.chat.domain.user.{UserFactory, UserId, UserRepository}
 import jp.androbo.quick.chat.web.controller.ApiActions
 import play.api.libs.json.Json
 import play.api.mvc._

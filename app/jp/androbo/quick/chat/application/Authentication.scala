@@ -1,9 +1,9 @@
 package jp.androbo.quick.chat.application
 
 import javax.inject.{Inject, Singleton}
-import jp.androbo.quick.chat.domain.model.event.error.ErrorEvent
-import jp.androbo.quick.chat.domain.model.room.operation.RoomOperations
-import jp.androbo.quick.chat.domain.model.user.{User, UserRepository}
+import jp.androbo.quick.chat.domain.error.ErrorEvent
+import jp.androbo.quick.chat.domain.room.operation.RoomOperations
+import jp.androbo.quick.chat.domain.user.{User, UserRepository}
 
 @Singleton
 class Authentication @Inject()(

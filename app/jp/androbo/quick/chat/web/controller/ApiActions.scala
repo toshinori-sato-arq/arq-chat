@@ -2,7 +2,7 @@ package jp.androbo.quick.chat.web.controller
 
 import com.google.inject.Inject
 import jp.androbo.quick.chat.application.{AuthenticatedUser, SessionId, SessionManager}
-import jp.androbo.quick.chat.domain.model.event.error.{ErrorEvent, ErrorMessageGenerator}
+import jp.androbo.quick.chat.domain.error.{ErrorEvent, ErrorMessageGenerator}
 import play.api.http.HeaderNames.{CACHE_CONTROL, EXPIRES, PRAGMA}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.Results._

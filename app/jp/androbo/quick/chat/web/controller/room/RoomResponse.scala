@@ -1,7 +1,7 @@
 package jp.androbo.quick.chat.web.controller.room
 
-import jp.androbo.quick.chat.domain.model.privilege.RoomPrivilege
-import jp.androbo.quick.chat.domain.model.room.{RoomDescription, RoomId, RoomName}
+import jp.androbo.quick.chat.domain.privilege.RoomPrivilege
+import jp.androbo.quick.chat.domain.room.{RoomDescription, RoomId, RoomName}
 import play.api.libs.json.{Format, Json}
 
 case class RoomResponse(id: RoomId, name: RoomName, description: RoomDescription, privileges: Set[RoomPrivilege])

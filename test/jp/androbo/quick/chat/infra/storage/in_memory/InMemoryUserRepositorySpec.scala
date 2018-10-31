@@ -1,8 +1,8 @@
 package jp.androbo.quick.chat.infra.storage.in_memory
 
-import jp.androbo.quick.chat.domain.model.email.{EmailAddress, EmailAddressFactoryImpl}
-import jp.androbo.quick.chat.domain.model.event.error.ErrorEvent
-import jp.androbo.quick.chat.domain.model.user.{UserFactoryImpl, UserId}
+import jp.androbo.quick.chat.domain.email.{EmailAddress, EmailAddressFactoryImpl}
+import jp.androbo.quick.chat.domain.error.ErrorEvent
+import jp.androbo.quick.chat.domain.user.{UserFactoryImpl, UserId}
 import org.scalatest.FreeSpec
 
 class InMemoryUserRepositorySpec extends FreeSpec {
