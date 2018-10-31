@@ -1,4 +1,4 @@
-package jp.androbo.quick.chat.web.controller.login
+package jp.androbo.quick.chat.web.controller.authentication
 
 import jp.androbo.quick.chat.application.SessionId
 import play.api.libs.json.{Format, Json}

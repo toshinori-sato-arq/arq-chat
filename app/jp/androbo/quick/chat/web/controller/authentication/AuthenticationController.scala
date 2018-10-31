@@ -1,11 +1,12 @@
-package jp.androbo.quick.chat.web.controller.login
+package jp.androbo.quick.chat.web.controller.authentication
 
 import javax.inject.{Inject, Singleton}
-import jp.androbo.quick.chat.application.{SessionIdGenerator, SessionManager}
+import jp.androbo.quick.chat.application.{Authentication, SessionIdGenerator, SessionManager}
 import jp.androbo.quick.chat.domain.Password
 import jp.androbo.quick.chat.domain.model.email.EmailAddress
 import jp.androbo.quick.chat.domain.model.event.error.ErrorEvent
-import jp.androbo.quick.chat.domain.model.user.{UserId, UserRepository}
+import jp.androbo.quick.chat.domain.model.room.{RoomFactory, RoomRepository}
+import jp.androbo.quick.chat.domain.model.user.{UserFactory, UserId, UserRepository}
 import jp.androbo.quick.chat.web.controller.ApiActions
 import play.api.libs.json.Json
 import play.api.mvc._
@@ -13,14 +14,27 @@ import play.api.mvc._
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class LoginController @Inject()(
+class AuthenticationController @Inject()(
                                   cc: ControllerComponents,
                                   actions: ApiActions,
+                                  userFactory: UserFactory,
                                   userRepository: UserRepository,
-                                  sessionManager: SessionManager,
+                                  roomFactory: RoomFactory,
+                                  roomRepository: RoomRepository,
+                                  authentication: Authentication,
                                   sessionIdGenerator: SessionIdGenerator,
+                                  sessionManager: SessionManager,
                                   implicit val ec: ExecutionContext,
                                 ) extends AbstractController(cc) {
+
+  def signUp(): Action[SignUpRequest] = actions.noCache.async(parse.json[SignUpRequest]) { request =>
+    Future {
+      userFactory.create(request.body.email, request.body.name, request.body.password).flatMap { user =>
+        authentication.signUp(user)
+      }.fold(e => BadRequest(actions.error(e)), _ => Ok)
+    }
+  }
+
   def login(): Action[LoginRequest] = actions.noCache.async(parse.json[LoginRequest]) { request =>
     Future {
       val userId = UserId(EmailAddress(request.body.email))
@@ -34,6 +48,13 @@ class LoginController @Inject()(
           BadRequest(actions.error(ErrorEvent.LoginError))
         }
       }.getOrElse(BadRequest(actions.error(ErrorEvent.LoginError)))
+    }
+  }
+
+  def logout(): Action[AnyContent] = actions.authenticate.async { request =>
+    Future {
+      sessionManager.delete(request.user.sessionId)
+      Ok
     }
   }
 }

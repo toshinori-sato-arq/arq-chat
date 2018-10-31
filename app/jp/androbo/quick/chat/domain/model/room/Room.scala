@@ -1,18 +1,15 @@
 package jp.androbo.quick.chat.domain.model.room
 
-import java.time.LocalDateTime
-
-import play.api.libs.json.{Format, Json}
+import jp.androbo.quick.chat.domain.model.user.UserId
+import play.api.libs.json.{Json, Writes}
 
 case class Room(
-               id: RoomId,
-               name: RoomName,
-               description: RoomDescription,
-               createAt: LocalDateTime,
-               updateAt: LocalDateTime,
-               deleted: Boolean,
+                 id: RoomId,
+                 name: RoomName,
+                 description: RoomDescription,
+                 users: Map[UserId, UserInRoom],
                )
 
 object Room {
-  implicit val format: Format[Room] = Json.format[Room]
+  implicit val format: Writes[Room] = Json.writes[Room]
 }

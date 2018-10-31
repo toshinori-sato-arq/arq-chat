@@ -1,4 +1,4 @@
-package jp.androbo.quick.chat.web.controller.sign_up
+package jp.androbo.quick.chat.web.controller.authentication
 
 import play.api.libs.json.{Format, Json}
 

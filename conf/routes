@@ -7,19 +7,32 @@
 GET     /                           controllers.HomeController.index
 
 + nocsrf
+POST    /api/v1/signup              jp.androbo.quick.chat.web.controller.authentication.AuthenticationController.signUp
+
++ nocsrf
+POST    /api/v1/login               jp.androbo.quick.chat.web.controller.authentication.AuthenticationController.login
+
++ nocsrf
+DELETE  /api/v1/logout              jp.androbo.quick.chat.web.controller.authentication.AuthenticationController.logout
+
++ nocsrf
+GET     /api/v1/rooms               jp.androbo.quick.chat.web.controller.room.RoomController.rooms
+
++ nocsrf
+POST    /api/v1/rooms               jp.androbo.quick.chat.web.controller.room.RoomController.addRoom
+
+
+###################### DEBUG >>>>>
++ nocsrf
 GET     /debug/users                jp.androbo.quick.chat.web.controller.debug.DebugController.users
 
 + nocsrf
 GET     /debug/auth_users           jp.androbo.quick.chat.web.controller.debug.DebugController.authenticatedUsers
 
 + nocsrf
-POST    /api/v1/signup              jp.androbo.quick.chat.web.controller.sign_up.SignUpController.signUp
+GET     /debug/rooms                jp.androbo.quick.chat.web.controller.debug.DebugController.rooms
+###################### DEBUG <<<<<
 
-+ nocsrf
-POST    /api/v1/login               jp.androbo.quick.chat.web.controller.login.LoginController.login
-
-+ nocsrf
-DELETE  /api/v1/logout              jp.androbo.quick.chat.web.controller.logout.LogoutController.logout
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

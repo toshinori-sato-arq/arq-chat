@@ -2,7 +2,7 @@ package jp.androbo.quick.chat.domain.model.room
 
 import play.api.libs.json.{Format, JsResult, JsString, JsValue}
 
-case class RoomId(value: String) extends AnyVal
+case class RoomId private[room] (value: String) extends AnyVal
 
 object RoomId {
   implicit val format: Format[RoomId] = new Format[RoomId] {

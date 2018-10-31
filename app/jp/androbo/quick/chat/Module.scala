@@ -4,17 +4,26 @@ import com.google.inject.AbstractModule
 import jp.androbo.quick.chat.application.{SessionIdGenerator, SessionManager, SimpleSessionIdGenerator}
 import jp.androbo.quick.chat.domain.model.email.{EmailAddressFactory, EmailAddressFactoryImpl}
 import jp.androbo.quick.chat.domain.model.event.error.{ErrorMessageGenerator, SimpleErrorMessageGenerator}
+import jp.androbo.quick.chat.domain.model.room._
+import jp.androbo.quick.chat.domain.model.room.operation.{RoomOperations, RoomOperationsImpl}
 import jp.androbo.quick.chat.domain.model.user.{UserFactory, UserFactoryImpl, UserRepository}
-import jp.androbo.quick.chat.infra.storage.in_memory.{InMemorySessionManager, InMemoryUserRepository}
+import jp.androbo.quick.chat.infra.storage.in_memory.{InMemoryRoomRepository, InMemorySessionManager, InMemoryUserRepository}
 import net.codingwell.scalaguice.ScalaModule
 
 class Module extends AbstractModule with ScalaModule {
   override def configure(): Unit = {
-    bind[EmailAddressFactory].to[EmailAddressFactoryImpl]
+    bind[RoomOperations].to[RoomOperationsImpl]
+
+    bind[SessionIdGenerator].to[SimpleSessionIdGenerator]
     bind[ErrorMessageGenerator].to[SimpleErrorMessageGenerator]
+    bind[RoomIdGenerator].to[SimpleRoomIdGenerator]
+
+    bind[EmailAddressFactory].to[EmailAddressFactoryImpl]
     bind[UserFactory].to[UserFactoryImpl]
+    bind[RoomFactory].to[RoomFactoryImpl]
+
     bind[UserRepository].to[InMemoryUserRepository]
     bind[SessionManager].to[InMemorySessionManager]
-    bind[SessionIdGenerator].to[SimpleSessionIdGenerator]
+    bind[RoomRepository].to[InMemoryRoomRepository]
   }
 }
