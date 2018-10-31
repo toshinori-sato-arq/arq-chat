@@ -15,6 +15,8 @@ GET     /api/v1/rooms               jp.androbo.quick.chat.web.controller.room.Ro
 + nocsrf
 POST    /api/v1/rooms               jp.androbo.quick.chat.web.controller.room.RoomController.addRoom
 
++ nocsrf
+GET     /api/v1/rooms/:roomId/users jp.androbo.quick.chat.web.controller.room.RoomController.users(roomId: String)
 
 ###################### DEBUG >>>>>
 + nocsrf

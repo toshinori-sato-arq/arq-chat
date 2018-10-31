@@ -7,4 +7,5 @@ object ErrorEvent {
   case object InvalidEmailAddress extends ErrorEvent
   case object LoginError extends ErrorEvent
   case object UnauthorizedOperation extends ErrorEvent
+  case object NotFound extends ErrorEvent
 }

@@ -1,10 +1,11 @@
 package jp.androbo.quick.chat.web.controller.room
 
 import javax.inject.{Inject, Singleton}
+import jp.androbo.quick.chat.domain.error.{ErrorEvent, ErrorMessageGenerator}
 import jp.androbo.quick.chat.domain.privilege.RoomPrivilege
-import jp.androbo.quick.chat.domain.room.RoomRepository
+import jp.androbo.quick.chat.domain.room.{RoomId, RoomRepository}
 import jp.androbo.quick.chat.domain.room.operation.RoomOperations
-import jp.androbo.quick.chat.web.controller.ApiActions
+import jp.androbo.quick.chat.web.controller.{ApiActions, ErrorResponse}
 import play.api.libs.json.Json
 import play.api.mvc.{AbstractController, AnyContent, ControllerComponents}
 
@@ -17,6 +18,7 @@ class RoomController @Inject()(
                                   actions: ApiActions,
                                   roomRepository: RoomRepository,
                                   roomOperations: RoomOperations,
+                                  errorMessageGenerator: ErrorMessageGenerator,
                                   implicit val ec: ExecutionContext,
                                 ) extends AbstractController(cc) {
   def rooms(): Action[AnyContent] = actions.authenticate.async { request =>
@@ -37,6 +39,19 @@ class RoomController @Inject()(
     Future {
       roomOperations.addRoom(request.body.name, request.body.description, request.user.values)
       Ok
+    }
+  }
+
+  def users(roomId: String): Action[AnyContent] = actions.authenticate.async { request =>
+    Future {
+      (for {
+        room <- roomRepository.findById(RoomId(roomId)).toRight(ErrorEvent.NotFound)
+        _ <- room.users.get(request.user.values.id).toRight(ErrorEvent.UnauthorizedOperation)
+      } yield room.users.values.map(u => UserResponse(u.values.id.email, u.values.name))).fold({ e =>
+        BadRequest(Json.toJson(ErrorResponse(errorMessageGenerator.generate(e))))
+      }, { users =>
+        Ok(Json.toJson(users))
+      })
     }
   }
 }
