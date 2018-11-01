@@ -9,6 +9,7 @@ object RoomPrivilege {
   case object RoomDescriptionEditable extends RoomPrivilege("RoomDescriptionEditable")
   case object RoomLeavable extends RoomPrivilege("RoomLeavable")
   case object RoomInvitable extends RoomPrivilege("RoomInvitable")
+  case object RoomDeletable extends RoomPrivilege("RoomDeletable")
 
   object Preset {
     val All: Set[RoomPrivilege] = Set(
@@ -16,6 +17,7 @@ object RoomPrivilege {
       RoomDescriptionEditable,
       RoomLeavable,
       RoomInvitable,
+      RoomDeletable,
     )
     val MyPage: Set[RoomPrivilege] = Set(RoomDescriptionEditable)
     val Owner: Set[RoomPrivilege] = All
@@ -27,6 +29,7 @@ object RoomPrivilege {
     case "RoomDescriptionEditable" => RoomDescriptionEditable
     case "RoomLeavable" => RoomLeavable
     case "RoomInvitable" => RoomInvitable
+    case "RoomDeletable" => RoomDeletable
   }
 
   implicit val format: Format[RoomPrivilege] = new Format[RoomPrivilege] {

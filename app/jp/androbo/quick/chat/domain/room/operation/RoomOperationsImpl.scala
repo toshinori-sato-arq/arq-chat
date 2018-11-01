@@ -53,4 +53,13 @@ class RoomOperationsImpl @Inject()(
     val r = roomFactory.create(owner, RoomPrivilege.Preset.Owner, name, desc)
     roomRepository.add(r)
   }
+
+  override def deleteRoom(roomId: RoomId, deleter: User): Either[ErrorEvent, Unit] = {
+    roomRepository.findById(roomId).map { room =>
+      operation(room, deleter, Set(RoomPrivilege.RoomDeletable)) { () =>
+        roomRepository.delete(room)
+        Right(())
+      }
+    }.getOrElse(Left(ErrorEvent.NotFound))
+  }
 }

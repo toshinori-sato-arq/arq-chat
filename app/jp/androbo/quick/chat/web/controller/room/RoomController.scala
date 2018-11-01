@@ -44,6 +44,15 @@ class RoomController @Inject()(
     }
   }
 
+  def deleteRoom(roomId: String): Action[AnyContent] = actions.authenticate.async { request =>
+    Future {
+      roomOperations.deleteRoom(RoomId(roomId), request.user.values).fold(
+        e => BadRequest(Json.toJson(ErrorResponse(errorMessageGenerator.generate(e)))),
+        _ => Ok
+      )
+    }
+  }
+
   def users(roomId: String): Action[AnyContent] = actions.authenticate.async { request =>
     Future {
       (for {
@@ -63,6 +72,16 @@ class RoomController @Inject()(
         room <- roomRepository.findById(RoomId(roomId)).toRight(ErrorEvent.NotFound)
         newComer <- userRepository.findById(request.body.userId).toRight(ErrorEvent.NotFound)
         _ <- roomOperations.join(room, request.user.values, newComer, RoomPrivilege.Preset.BeInvited)
+      } yield ()).fold(e => BadRequest(Json.toJson(ErrorResponse(errorMessageGenerator.generate(e)))), _ => Ok)
+    }
+  }
+
+  def leave(roomId: String): Action[AnyContent] = actions.authenticate.async { request =>
+    Future {
+      (for {
+        room <- roomRepository.findById(RoomId(roomId)).toRight(ErrorEvent.NotFound)
+        user <- userRepository.findById(request.user.values.id).toRight(ErrorEvent.NotFound)
+        _ <- roomOperations.leave(room, user)
       } yield ()).fold(e => BadRequest(Json.toJson(ErrorResponse(errorMessageGenerator.generate(e)))), _ => Ok)
     }
   }

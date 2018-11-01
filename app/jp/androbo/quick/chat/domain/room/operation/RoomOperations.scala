@@ -23,4 +23,5 @@ trait RoomOperations {
   def join(room: Room, updater: User, newComer: User, newComerPrivileges: Set[RoomPrivilege]): Either[ErrorEvent, Unit]
   def addMyPage(user: User): Unit
   def addRoom(name: RoomName, desc: RoomDescription, owner: User): Unit
+  def deleteRoom(roomId: RoomId, deleter: User): Either[ErrorEvent, Unit]
 }
