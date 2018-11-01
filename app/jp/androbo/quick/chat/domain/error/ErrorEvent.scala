@@ -8,4 +8,5 @@ object ErrorEvent {
   case object LoginError extends ErrorEvent
   case object UnauthorizedOperation extends ErrorEvent
   case object NotFound extends ErrorEvent
+  case object AlreadyJoined extends ErrorEvent
 }

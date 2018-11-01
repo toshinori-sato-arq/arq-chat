@@ -34,17 +34,21 @@ class InMemoryRoomRepository extends RoomRepository {
 
   override def join(roomId: RoomId, user: User, privileges: Set[RoomPrivilege]): Option[Room] = this.synchronized {
     rooms.get(roomId).map { room =>
-      u2r.get(user.id).fold(u2r += user.id -> mutable.Map(room.id -> room))(r => u2r += user.id -> (r += room.id -> room))
-      room.copy(users = room.users + (user.id -> UserInRoom(user, privileges)))
+      val newRoom = room.copy(users = room.users + (user.id -> UserInRoom(user, privileges)))
+      rooms += roomId -> newRoom
+      u2r.get(user.id).fold(u2r += user.id -> mutable.Map(newRoom.id -> newRoom))(r => u2r += user.id -> (r += newRoom.id -> newRoom))
+      newRoom
     }
   }
 
   override def leave(roomId: RoomId, user: User): Option[Room] = this.synchronized {
     rooms.get(roomId).map { room =>
+      val newRoom = room.copy(users = room.users - user.id)
+      rooms += roomId -> newRoom
       u2r.get(user.id).foreach{
         rooms => u2r += user.id -> (rooms -= room.id)
       }
-      room.copy(users = room.users - user.id)
+      newRoom
     }
   }
 

@@ -5,6 +5,7 @@ import jp.androbo.quick.chat.domain.error.{ErrorEvent, ErrorMessageGenerator}
 import jp.androbo.quick.chat.domain.privilege.RoomPrivilege
 import jp.androbo.quick.chat.domain.room.{RoomId, RoomRepository}
 import jp.androbo.quick.chat.domain.room.operation.RoomOperations
+import jp.androbo.quick.chat.domain.user.UserRepository
 import jp.androbo.quick.chat.web.controller.{ApiActions, ErrorResponse}
 import play.api.libs.json.Json
 import play.api.mvc.{AbstractController, AnyContent, ControllerComponents}
@@ -19,6 +20,7 @@ class RoomController @Inject()(
                                   roomRepository: RoomRepository,
                                   roomOperations: RoomOperations,
                                   errorMessageGenerator: ErrorMessageGenerator,
+                                  userRepository: UserRepository,
                                   implicit val ec: ExecutionContext,
                                 ) extends AbstractController(cc) {
   def rooms(): Action[AnyContent] = actions.authenticate.async { request =>
@@ -54,4 +56,15 @@ class RoomController @Inject()(
       })
     }
   }
+
+  def addUser(roomId: String): Action[AddUserRequest] = actions.authenticate.async(parse.json[AddUserRequest]) { request =>
+    Future {
+      (for {
+        room <- roomRepository.findById(RoomId(roomId)).toRight(ErrorEvent.NotFound)
+        newComer <- userRepository.findById(request.body.userId).toRight(ErrorEvent.NotFound)
+        _ <- roomOperations.join(room, request.user.values, newComer, RoomPrivilege.Preset.BeInvited)
+      } yield ()).fold(e => BadRequest(Json.toJson(ErrorResponse(errorMessageGenerator.generate(e)))), _ => Ok)
+    }
+  }
+
 }

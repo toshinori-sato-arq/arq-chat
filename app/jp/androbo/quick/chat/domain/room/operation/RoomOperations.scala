@@ -7,11 +7,11 @@ import jp.androbo.quick.chat.domain.user.User
 
 trait RoomOperations {
 
-  protected def operation[P <: RoomPrivilege, E >: ErrorEvent, T](room: Room, updater: User, requiredPrivileges: Set[P])(op: () => T): Either[E, T] = {
+  protected def operation[P <: RoomPrivilege, E >: ErrorEvent, T](room: Room, updater: User, requiredPrivileges: Set[P])(op: () => Either[E, T]): Either[E, T] = {
     if (room.users.get(updater.id).exists { u =>
       requiredPrivileges.forall(u.privileges.contains)
     }) {
-      Right(op())
+      op()
     } else {
       Left(ErrorEvent.UnauthorizedOperation)
     }

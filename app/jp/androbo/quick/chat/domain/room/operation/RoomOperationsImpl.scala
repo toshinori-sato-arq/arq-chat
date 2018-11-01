@@ -35,8 +35,12 @@ class RoomOperationsImpl @Inject()(
 
   override def join(room: Room, updater: User, newComer: User, newComerPrivileges: Set[RoomPrivilege]): Either[ErrorEvent, Unit] = {
     operation(room, updater, Set(RoomPrivilege.RoomInvitable)) { () =>
-      roomRepository.join(room.id, newComer, newComerPrivileges)
-      Right(())
+      if (room.users.get(newComer.id).isDefined) {
+        Left(ErrorEvent.AlreadyJoined)
+      } else {
+        roomRepository.join(room.id, newComer, newComerPrivileges)
+        Right(())
+      }
     }
   }
 

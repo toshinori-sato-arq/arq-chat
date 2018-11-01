@@ -10,5 +10,6 @@ class SimpleErrorMessageGenerator extends ErrorMessageGenerator {
     case ErrorEvent.LoginError => "メールアドレスまたはパスワードが正しくありません"
     case ErrorEvent.UnauthorizedOperation => "その操作は許可されていません"
     case ErrorEvent.NotFound => "対象のリソースが見つかりません"
+    case ErrorEvent.AlreadyJoined => "すでに参加済みです"
   }
 }

@@ -19,6 +19,7 @@ object RoomPrivilege {
     )
     val MyPage: Set[RoomPrivilege] = Set(RoomDescriptionEditable)
     val Owner: Set[RoomPrivilege] = All
+    val BeInvited: Set[RoomPrivilege] = Set(RoomLeavable)
   }
 
   def apply(code: String): RoomPrivilege = code match {
