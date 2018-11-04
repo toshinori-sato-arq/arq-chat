@@ -2,6 +2,7 @@ package jp.androbo.quick.chat.web.controller.room
 
 import javax.inject.{Inject, Singleton}
 import jp.androbo.quick.chat.domain.error.{ErrorEvent, ErrorMessageGenerator}
+import jp.androbo.quick.chat.domain.message.{MessageFactory, MessageRepository}
 import jp.androbo.quick.chat.domain.privilege.RoomPrivilege
 import jp.androbo.quick.chat.domain.room.{RoomId, RoomRepository}
 import jp.androbo.quick.chat.domain.room.operation.RoomOperations
@@ -21,6 +22,8 @@ class RoomController @Inject()(
                                   roomOperations: RoomOperations,
                                   errorMessageGenerator: ErrorMessageGenerator,
                                   userRepository: UserRepository,
+                                  messageFactory: MessageFactory,
+                                  messageRepository: MessageRepository,
                                   implicit val ec: ExecutionContext,
                                 ) extends AbstractController(cc) {
   def rooms(): Action[AnyContent] = actions.authenticate.async { request =>
@@ -83,6 +86,35 @@ class RoomController @Inject()(
         user <- userRepository.findById(request.user.values.id).toRight(ErrorEvent.NotFound)
         _ <- roomOperations.leave(room, user)
       } yield ()).fold(e => BadRequest(Json.toJson(ErrorResponse(errorMessageGenerator.generate(e)))), _ => Ok)
+    }
+  }
+
+  def messages(roomId: String): Action[AnyContent] = actions.authenticate.async { request =>
+    Future {
+      (for {
+        room <- roomRepository.findById(RoomId(roomId)).toRight(ErrorEvent.NotFound)
+        _ <- room.users.get(request.user.values.id).toRight(ErrorEvent.UnauthorizedOperation)
+      } yield messageRepository.list(room.id)).fold({ e =>
+        BadRequest(Json.toJson(ErrorResponse(errorMessageGenerator.generate(e))))
+      }, { messages =>
+        Ok(Json.toJson(messages))
+      })
+    }
+  }
+
+  def postMessage(roomId: String): Action[PostMessageRequest] = actions.authenticate.async(parse.json[PostMessageRequest]) { request =>
+    Future {
+      (for {
+        room <- roomRepository.findById(RoomId(roomId)).toRight(ErrorEvent.NotFound)
+        u <- room.users.get(request.user.values.id).toRight(ErrorEvent.UnauthorizedOperation)
+      } yield {
+        val message = messageFactory.create(request.body.text, room.id, u.values.id)
+        messageRepository.add(message)
+      }).fold({ e =>
+        BadRequest(Json.toJson(ErrorResponse(errorMessageGenerator.generate(e))))
+      }, { _ =>
+        Ok
+      })
     }
   }
 

@@ -27,6 +27,12 @@ POST    /api/v1/rooms/:roomId/users jp.androbo.quick.chat.web.controller.room.Ro
 + nocsrf
 DELETE  /api/v1/rooms/:roomId/users jp.androbo.quick.chat.web.controller.room.RoomController.leave(roomId: String)
 
++ nocsrf
+GET     /api/v1/rooms/:roomId/messages jp.androbo.quick.chat.web.controller.room.RoomController.messages(roomId: String)
+
++ nocsrf
+POST    /api/v1/rooms/:roomId/messages jp.androbo.quick.chat.web.controller.room.RoomController.postMessage(roomId: String)
+
 ###################### DEBUG >>>>>
 + nocsrf
 GET     /debug/users                jp.androbo.quick.chat.web.controller.debug.DebugController.users
