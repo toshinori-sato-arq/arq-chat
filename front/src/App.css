@@ -1,0 +1,93 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 10px;
+  color: white;
+
+  position: sticky;
+  top: 0;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------- */
+.Sidebar-Left {
+  float: left;
+  width: 20%;
+  height: calc(100vh - 150px - 50px);
+  background: rgb(77, 57, 75);
+  position: relative;
+  color: white;
+}
+
+.Sidebar-Right {
+  float: right;
+  width: 20%;
+  height: calc(100vh - 150px - 50px);
+  background: rgb(77, 57, 75);
+}
+
+.Sidebar-Left .User {
+  padding-left: 10px;
+  text-align: left;
+  font-size: large;
+  position: relative;
+}
+
+.Messages { 
+  /* background: #FFE4B5; */
+  background: #FEFEFE;
+  width: 60%;
+  height: calc(100vh - 150px - 50px);
+  overflow: auto;
+  display: inline-block;
+  text-align: left;
+  padding-left: 10px;
+  position: relative;
+}
+
+.Message .Head {
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+
+.Message .Time {
+  padding-right: 10px;
+}
+
+.Message .Body {
+  padding-left: 10px;
+}
+
+.Message-input {
+  bottom: 0;
+  position: absolute;
+  background: #222;
+  padding: 10px;
+  width: 100%;
+  height: 50px;
+}
+
+.Message-input input {
+  width: 50%;
+}

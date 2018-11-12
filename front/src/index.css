@@ -1,0 +1,12 @@
+@font-face {
+	font-family: 'yasahisa';
+	src: url('/font/yasahisa.ttf');
+}
+
+body {
+	font-family: yasahisa;
+}
+
+.text-input-pannel {
+  overflow: hidden;
+}
