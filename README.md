@@ -1,6 +1,26 @@
 # ARQ-Chat
 サーバサイドはWebAPIのみを実装し、フロントエンド(HTML,CSS,JavaScript,画像)とは分離して開発することを目指します　　
 
+## フロントエンド
+frontディレクトリにソースファイルを配置  
+画面を表示するためには、はじめにフロントエンドのビルドをします
+
+### 使用技術
+* [React.js](https://reactjs.org/)
+* [Axios](https://github.com/axios/axios)：ajaxライブラリ
+Vue.jsへ置き換えたいと考えています。
+
+### ビルド方法
+[Node.js](https://nodejs.org/ja/)をインストールし、front次のコマンドをたたく
+```
+$ npm ci
+$ npm run build
+```
+※npm ciについてはソースファイルクローン時の一度でほぼ大丈夫です。
+
+publicディレクトリ配下にビルド資産(html,css,js,画像,fontなど)が配置されます
+
+
 ## サーバサイド
 「front」ディレクトリ以外はすべてサーバサイドのコードになります
 
@@ -26,7 +46,7 @@ TODO:
 $ sbt run
 ```
 
-次のようなメッセージが出たら「http://localhost:9000/」へアクセス
+次のようなメッセージが出たら「[http://localhost:9000/](http://localhost:9000/)」へアクセス
 ```
 --- (Running the application, auto-reloading is enabled) ---
 
@@ -36,19 +56,3 @@ $ sbt run
 ```
 
 ARQ Chatのログインページが表示されば成功です
-
-## フロントエンド
-frontディレクトリにソースファイルを配置  
-
-### 使用技術
-* [React.js](https://reactjs.org/)
-* [Axios](https://github.com/axios/axios)：ajaxライブラリ
-Vue.jsへ置き換えたいと考えています。
-
-### ビルド方法
-[Node.js](https://nodejs.org/ja/)をインストールし、front次のコマンドをたたく
-```
-$ npm ci
-$ npm run build
-```
-※npm ciについてはソースファイルクローン時の一度でほぼ大丈夫です。
